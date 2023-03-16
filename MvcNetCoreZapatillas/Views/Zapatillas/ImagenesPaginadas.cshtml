@@ -1,0 +1,70 @@
+﻿@model ImagenZapatilla
+
+@{
+    int numregistros = 0;
+    int numpagina = 1;
+    int registrospagina = 0;
+
+    if (ViewData["TOTAL"] != null)
+    {
+        numregistros = (int)ViewData["TOTAL"];
+    }
+
+    if (ViewData["REGISTROPAGINA"] != null)
+    {
+        registrospagina = (int)ViewData["REGISTROPAGINA"];
+    }
+}
+
+@if (Model != null)
+{
+    @for (int i=1; i <= numregistros; i+=registrospagina)
+    {
+     <button class="btn-danger" id="btnDetalles@Model.IdImagen" value="@Model.IdImagen" onclick="handleClick(this)">SIGUIENTE</button>
+       @* <a asp-action="ImagenesPaginadas" asp-controller="Zapatillas" asp-route-posicion="@i" asp-route-registrospagina="@registrospagina">PAGINA @numpagina</a>*@
+        numpagina++;
+
+        <label id="idProducto">@Model.IdProducto</label>
+        <label id="registrosPagina">@registrospagina</label>
+         <label id="posicion">@numpagina</label>
+    }
+    <img src="@Model.Imagen"/>
+}
+
+
+@section scripts { 
+<script>
+
+
+
+
+
+    function handleClick(button) {
+
+        var idProducto = $('#idProducto').text();
+
+        var registrosPagina =  parseInt($('#registrosPagina').text()) + 1;
+  var posicion =  parseInt($('#posicion').text()) + 1;
+
+        $.ajax({
+    url: '/Zapatillas/ImagenesPaginadas?idProducto=' + idProducto + '&registrospagina=' + registrosPagina + '&posicion=' + posicion,
+    type: 'POST',
+
+    success: function(data) {
+        $('#divImagenes').html(data);
+
+    },
+    error: function(xhr, status, error) {
+        console.error('Error:', error);
+    }
+});
+
+
+ // var request = "/Zapatillas/_ZapatillasPartial?idProducto=" +idProducto;
+       // $("#detallesZapatillas").load(request); 
+}
+
+
+
+
+</script>}

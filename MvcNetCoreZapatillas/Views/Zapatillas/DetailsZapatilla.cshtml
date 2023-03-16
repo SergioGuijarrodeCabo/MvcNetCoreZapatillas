@@ -1,0 +1,51 @@
+﻿@model Zapatilla
+
+<h2>Zapatilla @Model.Nombre</h2>
+
+<p>Descripción: @Model.Descripcion</p>
+
+
+<label style="display:hidden;" id="labelID">@Model.IdProducto</label>
+
+
+
+<div id="divImagenes"></div>
+
+
+@section scripts { 
+<script>
+
+
+
+function handleClick(button) {
+
+    const idProducto = button.value;
+  var request = "/Zapatillas/_ZapatillasPartial?idProducto=" +idProducto;
+        $("#detallesZapatillas").load(request); 
+}
+
+
+    $(document).ready(function() {
+
+       var idProducto =  $('#labelID').text();
+      
+    $.ajax({
+    url: '/Zapatillas/ImagenesPaginadas?idProducto=' + idProducto,
+    type: 'GET',
+    async: false,
+    success: function(data) {
+      $('#divImagenes').html(data);
+    },
+    error: function(xhr, status, error) {
+      console.error('Error:', error);
+    }
+});
+
+});
+
+function getID() {
+
+}
+
+
+</script>}

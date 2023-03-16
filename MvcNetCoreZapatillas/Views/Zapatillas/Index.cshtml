@@ -1,0 +1,67 @@
+﻿@model List<Zapatilla>
+
+@if (Model != null)
+{
+    <table class="table table-bordered">
+    <thead>
+
+
+    </thead>
+
+    <tbody>
+            @foreach(Zapatilla zapa in Model)
+            {
+              <tr>
+                   <td>
+                   @* <button class="btn-danger" id="btnDetalles+@zapa.IdProducto" value="@zapa.IdProducto" onclick="handleClick(this)">*@
+                     <a asp-action="DetailsZapatilla" asp-controller="Zapatillas" asp-route-idproducto="@zapa.IdProducto"> @zapa.Nombre</a>  
+                    
+                </td>
+              </tr>  
+
+            }
+
+    </tbody>
+</table>
+
+
+}
+
+@*@section scripts { 
+<script>
+
+
+
+    function handleClick(button) {
+
+    const idProducto = button.value;
+  var request = "/Zapatillas/_ZapatillasPartial?idProducto=" +idProducto;
+        $("#detallesZapatillas").load(request); 
+}
+
+//$(document).ready(function() {
+//    $("#btnDetalles").click(function() {
+
+//        var idZapatilla = $("#btnDetalles").val();
+
+//        alert(idZapatilla);
+//        //Controller/Action?id=1 
+
+//        //Controller/Action?id=1&otro=valor 
+
+//        //Controller/Action/1  ESTO SOLO SI SE LLAMA {id} EL PARAMETRO 
+
+//        //    var request = "/Coches/_DetailsCoche?idcoche=" + idcoche; 
+
+//        //    $("#contenidodetails").load(request); 
+
+//    });
+
+//});
+
+function getID() {
+
+}
+
+
+</script>}*@
